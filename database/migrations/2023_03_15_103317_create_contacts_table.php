@@ -18,6 +18,9 @@ class CreateContactsTable extends Migration
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('company')->nullable();
+            $table->string('job')->nullable();
+            $table->string('group')->nullable();
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
