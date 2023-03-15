@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('auth/login');
+})->name('root');
+
+Route::get('login', function () {
+    return view('auth/login');
+})->name('login');
+
+Route::get('register', function () {
     return view('auth/register');
-});
+})->name('register');
 
 Route::middleware([
     'auth:sanctum',
@@ -23,6 +32,14 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('pradzia');
+        return redirect()->route('pradzia.index');
     })->name('dashboard');
+    
+    Route::get('/pradzia', [ContactController::class, 'index'])->name('pradzia.index');
+    Route::post('/pradzia', [ContactController::class, 'store'])->name('contacts.store');
+    Route::get('/pradzia/create', [ContactController::class, 'create'])->name('pradzia.create');
+    Route::get('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.edit');
+    Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+
 });
+
