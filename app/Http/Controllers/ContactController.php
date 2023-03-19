@@ -85,7 +85,7 @@ class ContactController extends Controller
         $contact->job = $validatedData['job'];
         $contact->save();
 
-        return redirect()->route('pradzia');
+        return redirect()->route('pradzia.index');
     }
 
     public function update(Request $request, Contact $contact)
@@ -105,14 +105,14 @@ class ContactController extends Controller
         $contact->job = $validatedData['job'];
         $contact->save();
 
-        return redirect()->route('pradzia');
+        return redirect()->route('pradzia.index');
     }
 
     public function destroy(Contact $contact)
 {
     $contact->delete();
 
-    return redirect()->route('pradzia');
+    return redirect()->route('pradzia.index');
 }
 
 
