@@ -16,6 +16,24 @@
                         {{ __('Mano kontaktai') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('assign_group_tag') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Grupės ir žymos') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('import') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Importuoti') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('export') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Eksportuoti') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

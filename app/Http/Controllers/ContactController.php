@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Imports\ContactsImport;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Group;
+use App\Models\Tag;
+use League\Csv\Writer;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -114,6 +120,56 @@ class ContactController extends Controller
 
     return redirect()->route('pradzia.index');
 }
+
+public function assignGroupTag(Request $request)
+{
+    $contact = Contact::findOrFail($request->contact_id);
+    $group = Group::findOrFail($request->group_id);
+    $tag = Tag::findOrFail($request->tag_id);
+
+    // update the group and tag of the contact
+    $contact->group = $group->id;
+    $contact->tag = $tag->id;
+    $contact->save();
+
+    return redirect()->route('assign_group_tag')->with('success', 'Tag assigned successfully.');
+}
+
+public function import(Request $request)
+{
+    Excel::import(new ContactsImport, $request->file('file'));
+    return redirect()->back()->with('success', 'Contacts imported successfully.');
+}
+
+public function export(Request $request)
+{
+    $format = $request->input('export_format');
+    $filename = 'contacts.' . $format;
+
+    $contacts = Contact::where('user_id', auth()->id())->get();
+
+    $csv = Writer::createFromString('');
+    $csv->setDelimiter(',');
+    $csv->setNewline("\r\n");
+
+    // Add headers to CSV file
+    $csv->insertOne(['Name', 'Phone', 'Email', 'Company', 'Job']);
+
+    // Add contacts to CSV file
+    foreach ($contacts as $contact) {
+        $csv->insertOne([$contact->name, $contact->phone, $contact->email, $contact->company, $contact->job]);
+    }
+
+    // Set response headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+    ];
+
+    return response($csv->getContent(), 200, $headers);
+}
+
+
 
 
 }

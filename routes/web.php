@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,15 @@ Route::middleware([
     Route::get('contact', function () {
         return view('contact');
     })->name('contact');
+    Route::get('assign_group_tag', function () {
+        return view('assign_group_tag');
+    })->name('assign_group_tag');
+    Route::get('export', function () {
+        return view('export');
+    })->name('export');
+    Route::get('import', function () {
+        return view('import');
+    })->name('import');
     
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
     Route::get('/pradzia', [ContactController::class, 'index'])->name('pradzia.index');
@@ -48,5 +59,29 @@ Route::middleware([
     Route::delete('/contact/{contact}', [ContactController::class, 'destroycontact'])->name('contacts.destroy');
 
     Route::get('/show-contacts', [ContactController::class, 'index2'])->name('show-contacts');
+
+
+    Route::get('/assign_group_tag', [GroupController::class, 'index'])->name('assign_group_tag');
+    Route::get('/tags/create', [TagController::class, 'create'])->name('tags.create');
+    Route::post('/tags', [TagController::class, 'store'])->name('tags.create');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::post('/assign_group_tag', [ContactController::class, 'assignGroupTag'])->name('assign_group_tag.post');
+
+    Route::delete('/groups/{group}', [GroupController::class, 'destroy'])->name('groups.destroy');
+    Route::delete('/tags/{tag}', [TagController::class, 'destroy'])->name('tags.destroy');
+
+    Route::get('/contacts/import', [ContactController::class, 'import'])->name('contacts.import');
+    Route::post('/contacts/import', [ContactController::class, 'import'])->name('contacts.import');
+
+    Route::get('/contacts/export', [ContactController::class, 'export'])->name('contacts.export');
+    Route::post('/contacts/export', [ContactController::class, 'export'])->name('contacts.export');
+    
+
+
+
+
+    
+
 });
 
