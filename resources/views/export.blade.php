@@ -15,8 +15,6 @@
         <label for="export_format" class="block font-medium text-sm text-gray-700">Eksportavimo formatas:</label>
         <select class="form-input rounded-md shadow-sm mt-1" id="export_format" name="export_format">
             <option value="csv">CSV</option>
-            <option value="excel">Excel</option>
-            <option value="pdf">PDF</option>
         </select>
     </div>
     <x-button class="block mt-1 ma-w-xs">

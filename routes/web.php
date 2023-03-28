@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\TagController;
 
@@ -48,6 +49,9 @@ Route::middleware([
     Route::get('import', function () {
         return view('import');
     })->name('import');
+    Route::get('communicate', function () {
+        return view('communicate');
+    })->name('communicate');
     
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
     Route::get('/pradzia', [ContactController::class, 'index'])->name('pradzia.index');
@@ -78,10 +82,10 @@ Route::middleware([
     Route::post('/contacts/export', [ContactController::class, 'export'])->name('contacts.export');
     
 
-
-
-
     
+
+    Route::post('/communicate', [CommunicationController::class, 'store'])->name('communications.store');
+    Route::get('/communicate', [CommunicationController::class, 'create'])->name('communicate');
 
 });
 
