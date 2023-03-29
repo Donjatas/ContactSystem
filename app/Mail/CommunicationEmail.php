@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\PlainTextEmail;
 use App\Models\Communication;
 use App\Models\Contact;
+use App\Models\User;
 
 
 class CommunicationEmail extends Mailable
@@ -17,19 +18,19 @@ class CommunicationEmail extends Mailable
 
     public $communication;
     public $contact;
-    public $contacts;
+    public $kontaktas;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Communication $communication, Contact $contact, $contacts = [])
+    public function __construct(Communication $communication, Contact $contact, User $kontaktas )
     {
         $this->communication = $communication;
         $this->contact = $contact;
         $this->view = 'communication_plain';
-        $this->contacts = $contacts;
+        $this->kontaktas = $kontaktas;
     }
 
     /**
@@ -42,6 +43,7 @@ class CommunicationEmail extends Mailable
         return $this->view('communication_plain')
                     ->subject($this->communication->subject)
                     ->with([
+                        'kontaktas' => $this->kontaktas->name,
                         'emailMessage' => $this->communication->message,
                     ]);
     }

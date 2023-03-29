@@ -25,6 +25,7 @@ class CreateContactsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Communication;
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CommunicationEmail;
+use Twilio\Rest\Client;
 
 class CommunicationController extends Controller
 {
@@ -49,23 +51,50 @@ class CommunicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $communication = new Communication();
-        $communication->subject = $request->input('subject');
-        $communication->message = $request->input('message');
-        $communication->contact_id = $request->input('contact_id');
-        $communication->type = $request->input('type');
-        $communication->scheduled_at = $request->input('scheduled_at');
-        $communication->save();
+{
+    $communication = new Communication();
+    $communication->subject = $request->input('subject');
+    $communication->message = $request->input('message');
+    $communication->contact_id = $request->input('contact_id');
+    $communication->type = $request->input('type');
+    $communication->save();
+
+    $contact = Contact::find($request->input('contact_id'));
+    $kontaktas = User::find(Auth::id());
+
+    if ($request->input('type') === 'email') {
+        Mail::to($contact->email)->send(new CommunicationEmail($communication, $contact, $kontaktas));
+    } else if ($request->input('type') === 'sms') {
+        $twilioSid = env('TWILIO_ACCOUNT_SID');
+        $twilioToken = env('TWILIO_AUTH_TOKEN');
+        $twilioNumber = env('TWILIO_SMS_FROM');
     
-        $contact = Contact::find($request->input('contact_id'));
+        // Create a new Twilio client
+        $twilio = new Client($twilioSid, $twilioToken);
     
-        Mail::to($contact->email)->send(new CommunicationEmail($communication, $contact));
+        // Send SMS message
+        $message = $twilio->messages->create(
+            $contact->phone, // Phone number(s) to send the message to
+            [
+                'from' => $twilioNumber, // Twilio phone number to send the message from
+                'body' => 'Žinutę atsiuntė: ' . $kontaktas->name . ' ' . $kontaktas->lastname . '. Žinutė: ' . $request->input('message') . '. Kontaktai: ' . $kontaktas->email . '; ' . $kontaktas->phone,
+
+            ]
+        );
     
-        $contacts = Contact::where('user_id', Auth::id())->get();
-    
-        return view('communicate', ['contacts' => $contacts]);
+        // Check if the message was sent successfully
+        if ($message->sid) {
+            // Message sent successfully
+        } else {
+            // Message failed to send
+        }
     }
+    
+    $contacts = Contact::where('user_id', Auth::id())->get();
+
+    return view('communicate', ['contacts' => $contacts]);
+}
+
     
 
 

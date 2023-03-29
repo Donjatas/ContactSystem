@@ -5,6 +5,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\TagController;
+use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,9 @@ Route::get('login', function () {
     return view('auth/login');
 })->name('login');
 
-Route::get('register', function () {
-    return view('auth/register');
-})->name('register');
+Route::post('/register', function (Request $request) {
+    return (new CreateNewUser())->create($request->all());
+});
 
 Route::middleware([
     'auth:sanctum',
