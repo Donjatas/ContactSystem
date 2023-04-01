@@ -7,7 +7,7 @@
                         <div class="mt-5 md:mt-0 md:col-span-2">
                             <div class="mx-auto max-w-md">
 
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900">Žymos sukūrimas</h2>
+                            <h2 class="mt-6 text-xl font-semibold text-gray-900">Grupės sukūrimas</h2>
 
                             <br>
 
@@ -126,8 +126,42 @@
         @endforeach
     </tbody>
 </table>
-
                     </div>
+                    <br>
+                    @if($contacts->isNotEmpty())
+                            <table class="min-w-full w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Vardas
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Grupė
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Žymė
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+    @foreach($contacts as $contact)
+    <tr>
+    <td class="px-2 py-1 whitespace-nowrap">
+        {{ $contact->name }}
+    </td>
+    <td class="px-2 py-1 whitespace-nowrap">
+        {{ $contact->group }}
+    </td>
+    <td class="px-2 py-1 whitespace-nowrap">
+        {{ $contact->tag }}
+    </td>
+</tr>
+
+    @endforeach
+</tbody>
+
+                            </table>
+        @endif
                 </div>
             </div>
         </div>

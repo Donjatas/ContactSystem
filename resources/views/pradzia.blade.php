@@ -73,20 +73,20 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
     @foreach($contacts as $contact)
     <tr>
-        <td class="px-2 py-1 whitespace-nowrap">
-            <x-input class="block mt-1 mx-auto w-2/3" type="text" name="name" id="name" value="{{ $contact->name }}"/>
+        <td class="px-2 py-1 whitespace-nowrap text-center">
+            {{ $contact->name }}
         </td>
-        <td class="px-2 py-1 whitespace-nowrap">
-            <x-input class="block mt-1 mx-auto w-2/3" type="text" name="phone" id="phone" value="{{ $contact->phone }}"/>
+        <td class="px-2 py-1 whitespace-nowrap text-center">
+            {{ $contact->phone }}
         </td>
-        <td class="px-2 py-1 whitespace-nowrap">
-            <x-input class="block mt-1 mx-auto w-2/3" type="email" name="email" id="email" value="{{ $contact->email }}"/>
+        <td class="px-2 py-1 whitespace-nowrap text-center">
+            {{ $contact->email }}
         </td>
-        <td class="px-2 py-1 whitespace-nowrap">
-            <x-input class="block mt-1 mx-auto w-2/3" type="text" name="company" id="company" value="{{ $contact->company }}"/>
+        <td class="px-2 py-1 whitespace-nowrap text-center">
+            {{ $contact->company }}
         </td>
-        <td class="px-2 py-1 whitespace-nowrap">
-            <x-input class="block mt-1 mx-auto w-2/3" type="text" name="job" id="job" value="{{ $contact->job }}"/>
+        <td class="px-2 py-1 whitespace-nowrap text-center">
+            {{ $contact->job }}
         </td>
     </tr>
     @endforeach

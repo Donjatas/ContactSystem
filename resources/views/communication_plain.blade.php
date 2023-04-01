@@ -14,8 +14,8 @@
         <p style="font-size: 16px; margin-bottom: 20px;">{{ $emailMessage }}</p>
         <br>
         <p style="font-size: 18px;">Išsiųsto asmens kontaktiniai duomenys:</p>
-        <p style="font-size: 16px; margin-bottom: 20px;">El. paštas - {{ $kontaktas->email }}</p>
-        <p style="font-size: 16px; margin-bottom: 20px;">Telefono nr. - {{ $kontaktas->phone }}</p>
+        <p style="font-size: 16px; margin-bottom: 20px;">El. paštas: {{ $kontaktas->email }}</p>
+        <p style="font-size: 16px; margin-bottom: 20px;">Telefono nr.: {{ $kontaktas->phone }}</p>
         <br>
         <br>
         <p style="font-size: 16px;">Jeigu žinutė kuri buvo atsiųsta jus įžeidžia prašome pranešti el. paštu: <a href="mailto:xdonatasx.l@gmail.com">xdonatasx.l@gmail.com</a></p>

@@ -128,8 +128,8 @@ public function assignGroupTag(Request $request)
     $tag = Tag::findOrFail($request->tag_id);
 
     // update the group and tag of the contact
-    $contact->group = $group->id;
-    $contact->tag = $tag->id;
+    $contact->group = $group->name;
+    $contact->tag = $tag->name;
     $contact->save();
 
     return redirect()->route('assign_group_tag')->with('success', 'Tag assigned successfully.');
