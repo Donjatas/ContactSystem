@@ -14,6 +14,7 @@
         "league/csv": "^9.9",
         "livewire/livewire": "^2.11",
         "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "^2.66",
         "phpoffice/phpspreadsheet": "^1.28",
         "twilio/sdk": "^7.0"
     },

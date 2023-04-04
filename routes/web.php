@@ -54,7 +54,7 @@ Route::middleware([
     Route::get('communicate', function () {
         return view('communicate');
     })->name('communicate');
-    
+
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
     Route::get('/pradzia', [ContactController::class, 'index'])->name('pradzia.index');
     Route::post('/pradzia', [ContactController::class, 'store'])->name('contacts.store');
