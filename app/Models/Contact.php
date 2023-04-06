@@ -23,12 +23,12 @@ class Contact extends Model
 
     public function groups()
 {
-    return $this->belongsToMany(Group::class);
+    return $this->belongsTo(Group::class);
 }
 
 public function tags()
 {
-    return $this->belongsToMany(Tag::class);
+    return $this->belongsTo(Tag::class);
 }
 
 }
